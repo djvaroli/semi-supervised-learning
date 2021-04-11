@@ -7,11 +7,13 @@ from sklearn.pipeline import make_pipeline, make_union
 from sklearn.tree import DecisionTreeClassifier
 from tpot.builtins import StackingEstimator
 
+
+target_column_name = "Purchased?"
 # NOTE: Make sure that the outcome column is labeled 'target' in the data file
-tpot_data = pd.read_csv('PATH/TO/DATA/FILE', sep='COLUMN_SEPARATOR', dtype=np.float64)
-features = tpot_data.drop('target', axis=1)
+tpot_data = pd.read_csv('../data/Next_month_products.csv', sep=',', dtype=np.float64)
+features = tpot_data.drop(target_column_name, axis=1)
 training_features, testing_features, training_target, testing_target = \
-            train_test_split(features, tpot_data['target'], random_state=None)
+            train_test_split(features, tpot_data[target_column_name], random_state=None)
 
 # Average CV score on the training set was: 0.8754
 exported_pipeline = make_pipeline(
